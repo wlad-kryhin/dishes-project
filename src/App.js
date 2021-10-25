@@ -1,20 +1,17 @@
 import "./App.css";
-import axios from "axios";
+import ContactForm from "./Components/DishesForm";
 
 import { Form } from "./Components/Form";
 function App() {
-  const onSaveProperty = async (property) => {
-    console.log(property);
-    const value = JSON.stringify(property);
-    const data = await axios.post(
-      "http://frosty-wood-6558.getsandbox.com:443/dishes",
-      value,
-    );
-    console.log(data);
+  const submit = (values) => {
+    // print the form values to the console
+    console.log(values);
   };
+  const onSaveProperty = async (property) => {};
   return (
     <div>
       <Form formSubmit={onSaveProperty} />
+      <ContactForm onSubmit={submit} />
     </div>
   );
 }

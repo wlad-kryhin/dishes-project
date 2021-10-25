@@ -1,22 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import { reduxForm, input } from "redux-form";
+import Input from "./Input";
 export const Form = ({ formSubmit }) => {
+  const [state, setState] = useState({
+    name: "",
+    time: "",
+    dishes: "",
+    diameter: 0,
+    bread: 0,
+    slice: 0,
+    range: 0,
+  });
+
   const [name, setName] = useState("");
   const [time, setTime] = useState("");
   const [dishes, setDishes] = useState("pizza");
-  const [diameter, setDiameter] = useState("");
-  const [bread, setBread] = useState("");
-  const [slice, setSlice] = useState("");
+  const [diameter, setDiameter] = useState(0);
+  const [bread, setBread] = useState(0);
+  const [slice, setSlice] = useState(0);
   const [range, setRange] = useState(0);
+
+  const func = (e, name) => {
+    if (e.target.name === name) {
+      setState((prevState) => ({ ...prevState, name: e.target.value }));
+    }
+  };
 
   const reset = () => {
     setName("");
     setTime("");
     setDishes("pizza");
-    setDiameter("");
-    setBread("");
-    setSlice("");
-    setRange(5);
+    setDiameter(0);
+    setBread(0);
+    setSlice(0);
+    setRange(0);
   };
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +42,7 @@ export const Form = ({ formSubmit }) => {
         name,
         preparation_time: time,
         type: dishes,
-        no_of_slices: bread,
+        no_of_slices: Number(bread),
       });
 
       reset();
@@ -35,7 +52,7 @@ export const Form = ({ formSubmit }) => {
         name,
         preparation_time: time,
         type: dishes,
-        slices_of_bread: range,
+        slices_of_bread: Number(range),
       });
 
       reset();
@@ -45,8 +62,8 @@ export const Form = ({ formSubmit }) => {
         name,
         preparation_time: time,
         type: dishes,
-        diameter,
-        no_of_slices: slice,
+        diameter: Number(diameter),
+        no_of_slices: Number(slice),
       });
 
       reset();
@@ -81,14 +98,18 @@ export const Form = ({ formSubmit }) => {
         return;
     }
   };
+  // useEffect(() => {
+  //   console.log(state);
+  // }, [state]);
 
   return (
     <form onSubmit={handleFormSubmit}>
       <h2>Dishes order form</h2>
-      <label>
+      <Input handleChangeInput={func} name={"name"} />
+      {/* <label>
         Dish name
         <input
-          onChange={handleInputChange}
+          onChange={(e) => func(e, name)}
           component="input"
           value={name}
           type="text"
@@ -96,7 +117,7 @@ export const Form = ({ formSubmit }) => {
           placeholder="name"
           required
         />
-      </label>
+      </label> */}
       <label>
         Preparation time
         <input
@@ -111,10 +132,9 @@ export const Form = ({ formSubmit }) => {
           required
         />
       </label>
-      <label for="size">
+      <label>
         Dish type
         <select
-          id="size"
           name="type"
           value={dishes}
           onChange={handleInputChange}
@@ -274,6 +294,6 @@ export const Form = ({ formSubmit }) => {
 //     </form>
 //   );
 
-// export default reduxForm({
+// export Form = reduxForm({
 //   form: "dishes",
 // })(Form);
