@@ -1,7 +1,10 @@
-import { createStore, combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { reducer as formReducer } from "redux-form";
-
-const rootReducer = combineReducers({
-  form: formReducer,
+import logger from "redux-logger";
+export const store = configureStore({
+  reducer: {
+    form: formReducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  devTools: process.env.NODE_ENV === "development",
 });
-export const store = createStore(rootReducer);

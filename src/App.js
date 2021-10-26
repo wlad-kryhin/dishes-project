@@ -1,17 +1,15 @@
 import "./App.css";
-import ContactForm from "./Components/DishesForm";
-
-import { Form } from "./Components/Form";
+import DishesForm from "./Components/DishesForm";
+import { fetchDishes } from "./Redux/operation";
+import { useDispatch } from "react-redux";
 function App() {
+  const dispatch = useDispatch();
   const submit = (values) => {
-    // print the form values to the console
-    console.log(values);
+    dispatch(fetchDishes(values));
   };
-  const onSaveProperty = async (property) => {};
   return (
     <div>
-      <Form formSubmit={onSaveProperty} />
-      <ContactForm onSubmit={submit} />
+      <DishesForm onSubmit={submit} />
     </div>
   );
 }
