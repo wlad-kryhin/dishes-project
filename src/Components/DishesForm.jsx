@@ -11,7 +11,7 @@ let DishesForm = (props) => {
   const { handleSubmit, reset, pristine, submitting } = props;
   return (
     <form onSubmit={handleSubmit} className={s.form}>
-      <h2 className={s.form_title}>Dishes order form</h2>
+      <h2 className={s.form_title}>Dish order form</h2>
 
       <label className={s.label} htmlFor="name">
         Name
